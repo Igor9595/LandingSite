@@ -5,7 +5,7 @@ function Footer() {
 
   return (
     <>
-      
+      <h3>ВЫЫЫЫ</h3>
     </>
   )
 }

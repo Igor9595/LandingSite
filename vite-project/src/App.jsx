@@ -12,11 +12,11 @@ function App() {
   return (
     <>
       <div className={style.main}>
-        <header></header>
+        <Header></Header>
         <Card></Card>
         <Card></Card>
         <Card></Card>
-        <footer></footer>
+        <Footer></Footer>
       </div>
     </>
   )
