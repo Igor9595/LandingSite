@@ -23,8 +23,6 @@ function Header({switchTheme}) {
         {
           theme == "dark" ? <img src={BBBBB}></img > : <img src={CCCCC}></img>
         }
-        
-
       </button>
   </header> 
 ) 
