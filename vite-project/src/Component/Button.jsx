@@ -1,6 +1,7 @@
 import style from "./style/Button.module.css"
+import { memo } from "react"
 
-function Button() {
+const Button = memo(() => {
 
 
   return (
@@ -8,6 +9,6 @@ function Button() {
       
     </>
   )
-}
+})
 
 export default Button
