@@ -9,16 +9,17 @@ const [likes, setlike] = useState(0)
 
 const theme = useContext(currentTheme)
   return (
-    <>
-      <img className={style.bat} src={baton} alt="" />
-      <p>FFasfsa</p>
+    <div className={style.AAA} data-theme={theme}>
+      <img  src={baton} alt="" />
       <p>{likes}</p>
-      <button onClick={()=>setlike(l => l + 1)}>
+      <p>FFasfsa</p>
+      
+      <button  onClick={()=>setlike(l => l + 1)}>
         {theme == "dark" ?
         <img src={hleb} alt="" /> :
         <img src="" alt="" />}
       </button>
-    </>
+    </div>
   )
 }
 

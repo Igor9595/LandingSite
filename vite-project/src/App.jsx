@@ -30,9 +30,11 @@ function App() {
     <currentTheme.Provider value={theme}>
       <div className={style.main}>
         <Header switchTheme={switchTheme}></Header>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
+        <div className={style.CCC}>
+          <Card></Card>
+          <Card></Card>
+          <Card></Card>
+        </div>
         <Footer></Footer>
       </div>
     </currentTheme.Provider>
