@@ -1,0 +1,140 @@
+.footerWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  gap: 1.5rem;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* Анимированный градиентный фон футера */
+.footerWrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  z-index: -2;
+  transition: opacity 0.6s ease;
+}
+
+/* Темная тема: меняем градиент на глубокий индиго */
+.footerWrapper[data-theme="dark"]::before {
+  background: linear-gradient(135deg, #16223a 0%, #0f172a 100%);
+}
+
+/* Светлая тема: нежный пастельный градиент */
+.footerWrapper[data-theme="light"]::before {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+}
+
+/* Легкая текстура поверх градиента */
+.footerWrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.03) 0%, transparent 50%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Логотип: плавное появление и свечение */
+.logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), filter 0.5s ease;
+}
+
+.footerWrapper:hover .logo {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 6px 20px rgba(102, 126, 234, 0.5));
+}
+
+/* В темной теме усиливаем свечение логотипа */
+.footerWrapper[data-theme="dark"] .logo {
+  filter: drop-shadow(0 4px 12px rgba(118, 75, 162, 0.4));
+}
+
+/* Заголовок: стеклянная плашка (glassmorphism) */
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1.5rem;
+  padding: 0.8rem 2.5rem;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Адаптация текста под темы */
+.footerWrapper[data-theme="dark"] .title {
+  background: rgba(17, 24, 39, 0.6);
+  border-color: rgba(59, 130, 246, 0.2);
+  color: #f1f5f9;
+}
+
+.footerWrapper[data-theme="light"] .title {
+  background: rgba(255, 255, 255, 0.4);
+  border-color: rgba(147, 197, 253, 0.4);
+  color: #1e293b;
+}
+
+/* Эффект нажатия на плашку */
+.title:active {
+  transform: scale(0.97);
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .footerWrapper {
+    padding: 2.5rem 0.5rem;
+    gap: 1rem;
+  }
+  
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    padding: 0.6rem 2rem;
+  }
+}
+
+/* Плавное появление футера при монтировании (если нужно анимировать вход) */
+.footerWrapper {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

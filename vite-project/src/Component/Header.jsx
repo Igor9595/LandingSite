@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-
+import Button from "./Button"
 import style from "./style/Header.module.css"
 import logo from "./Assets/AAAAA.png"
 
@@ -17,13 +17,10 @@ function Header({switchTheme}) {
   
       <img className={style.logo} data_theme = {theme} src={logo}/> 
       <h1 className={style.title} data_theme = {theme}>Выбери свою сторону, чужой ты или хищный →</h1> 
-      <button className={style.switchBtnTheme}
-      data_theme={theme}
-      onClick={switchTheme}>
-        {
-          theme == "dark" ? <img src={BBBBB}></img > : <img src={CCCCC}></img>
-        }
-      </button>
+      <Button img={ theme == "dark" ? BBBBB : CCCCC} action={switchTheme}>
+
+      </Button>
+      
   </header> 
 ) 
 }

@@ -1,0 +1,125 @@
+.btnlike {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+/* Плавный градиентный фон, который анимируется при смене темы через data-атрибут */
+.btnlike::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+  opacity: 1;
+}
+
+/* Смена фона для темной темы */
+.btnlike[data-theme="dark"]::before {
+  background: linear-gradient(135deg, #434385 0%, #2a2a5a 100%);
+}
+
+/* Смена фона для светлой темы */
+.btnlike[data-theme="light"]::before {
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+}
+
+/* Иконка внутри кнопки */
+.btnlike img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* Эффект нажатия на саму иконку */
+.btnlike:active img {
+  transform: scale(0.9);
+}
+
+/* Мягкое свечение и подъем при наведении */
+.btnlike:hover::before {
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(118, 75, 162, 0.4);
+}
+
+/* Анимированная обводка, которая "рисуется" при наведении */
+.btnlike::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.btnlike:hover::after {
+  width: 100%;
+  height: 100%;
+}
+
+/* Состояние загрузки (если вы будете передавать проп isLoading) */
+.btnlike[data-state="loading"] {
+  cursor: progress;
+  transform: scale(0.95);
+}
+
+.btnlike[data-state="loading"]::before {
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+.btnlike[data-state="loading"] img {
+  animation: spin 0.8s linear infinite;
+}
+
+/* Анимация вращения для иконки */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Анимация пульсации фона */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (hover: none) and (pointer: coarse) {
+  .btnlike:hover::before,
+  .btnlike:hover::after {
+    transform: none;
+    box-shadow: none;
+  }
+}

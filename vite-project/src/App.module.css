@@ -1,15 +1,193 @@
-.main{
-    background-color: rgb(255, 0, 0);
+.main {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #0f172a;
+  color: #f1f5f9;
+  /* Увеличен тайминг для более плавного и кинематографичного перехода */
+  transition: background 1.2s cubic-bezier(0.4, 0, 0.2, 1), color 1.2s ease;
 }
-body{
-    background-color: blueviolet;
+
+/* Фон светлой темы */
+.main[data-theme="light"] {
+  background: #f8fafc;
+  color: #1e293b;
 }
+
+/* Облака, которые меняют цвет и положение в зависимости от темы */
+.main::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -100px;
+  right: -100px;
+  height: 200px;
+  /* Более плотные и цветные облака */
+  background: 
+    radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 30%),
+    radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.12) 0%, transparent 20%);
+  z-index: 1;
+  pointer-events: none;
+  transition: background 1s ease;
+  animation: floatClouds 40s linear infinite;
+}
+
+/* Темные грозовые облака с фиолетовым отливом */
+.main[data-theme="dark"]::before {
+  background: 
+    radial-gradient(circle at 20% 40%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 70% 30%, rgba(55, 65, 81, 0.12) 0%, transparent 30%),
+    radial-gradient(circle at 40% 60%, rgba(96, 111, 139, 0.1) 0%, transparent 20%);
+}
+
+/* Анимация медленного дрейфа облаков */
+@keyframes floatClouds {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(-100px) translateY(20px); }
+}
+
+/* Слой с погодным эффектом (дождь, вода или искры) */
+.main::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.6;
+  background-image: 
+    /* По умолчанию — дождь */
+    radial-gradient(circle, rgba(100, 116, 139, 0.4) 20%, transparent 21%);
+  background-size: 50px 50px;
+  animation: 
+    fallRain 10s linear infinite,
+    flashLightning 15s linear infinite;
+  /* Анимация вспышки при смене темы. По умолчанию скрыта */
+  animation-name: flashBurst, fallRain, flashLightning;
+  animation-duration: 0.8s, 10s, 15s;
+  animation-fill-mode: forwards, infinite, infinite;
+  opacity: 0;
+}
+
+/* В светлой теме — дождь с кругами на воде */
+.main[data-theme="light"]::after {
+  background-image: 
+    /* Капли */
+    radial-gradient(circle, rgba(59, 130, 246, 0.5) 10%, transparent 11%),
+    /* Круги на воде */
+    radial-gradient(circle, rgba(59, 130, 246, 0.2) 20%, transparent 21%);
+  background-size: 40px 40px, 60px 60px;
+  animation: 
+    fallRainWater 12s linear infinite,
+    rippleWater 6s linear infinite;
+  /* Отключаем молнию и вспышку, включаем дождь */
+  animation-name: flashBurst, fallRainWater, rippleWater;
+}
+
+/* В темной теме — искры огня/магии */
+.main[data-theme="dark"]::after {
+  background-image: 
+    radial-gradient(circle, rgba(245, 101, 41, 0.6) 15%, transparent 16%),
+    radial-gradient(circle, rgba(234, 179, 8, 0.5) 20%, transparent 21%);
+  background-size: 40px 40px;
+  animation: 
+    floatEmbers 8s linear infinite,
+    pulseGlow 3s ease-in-out infinite alternate;
+  /* Отключаем воду, включаем искры */
+  animation-name: flashBurst, floatEmbers, pulseGlow;
+}
+
+/* Яркая вспышка при переключении темы (работает за счет смены data-theme) */
+@keyframes flashBurst {
+  0% { opacity: 0; }
+  10% { opacity: 0.9; background: radial-gradient(circle, #ffffff 30%, transparent 31%); }
+  20% { opacity: 0.4; }
+  100% { opacity: 0; }
+}
+
+/* Анимация падающих капель дождя */
+@keyframes fallRain {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 50px 1000px, 0 1000px; }
+}
+
+/* Анимация дождя с кругами на воде */
+@keyframes fallRainWater {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 40px 1200px, 60px 1200px; }
+}
+@keyframes rippleWater {
+  0% { background-size: 60px 60px; }
+  50% { background-size: 70px 70px; }
+  100% { background-size: 60px 60px; }
+}
+
+/* Анимация летящих искр (вверх и в сторону) */
+@keyframes floatEmbers {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: -40px -200px, 40px -300px; }
+}
+
+/* Редкие вспышки молнии (только в темной теме) */
+@keyframes flashLightning {
+  0%, 98% { 
+    background-image: 
+      radial-gradient(circle, rgba(100, 116, 139, 0.4) 20%, transparent 21%);
+  }
+  99%, 100% { 
+    /* Основная вспышка + два боковых разряда для объема */
+    background-image: 
+      radial-gradient(circle, rgba(255, 255, 255, 0.9) 30%, transparent 31%),
+      radial-gradient(circle at 10% 50%, rgba(255, 255, 255, 0.6) 10%, transparent 11%),
+      radial-gradient(circle at 90% 50%, rgba(255, 255, 255, 0.6) 10%, transparent 11%),
+      radial-gradient(circle, rgba(100, 116, 139, 0.4) 20%, transparent 21%);
+    opacity: 1;
+  }
+}
+
+/* Пульсация свечения искр */
+@keyframes pulseGlow {
+  0% { opacity: 0.5; }
+  100% { opacity: 0.9; }
+}
+
+/* Контейнер для карточек */
 .CCC {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin: 50px 0 50px 0;
-    width: 100%;
-    align-items: center;
-    justify-items: center;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem 5%;
+  z-index: 10;
+  position: relative;
+}
+
+/* Адаптивная темизация для всего контента */
+h1, h2, p, a {
+  transition: color 0.5s ease;
+}
+
+.main[data-theme="light"] h1,
+.main[data-theme="light"] h2,
+.main[data-theme="light"] p,
+.main[data-theme="light"] a {
+  color: #1e293b;
+}
+
+/* Затемнение фона при открытии модалок */
+.main::after {
+  backdrop-filter: blur(0px);
+}
+
+/* Убираем погодные эффекты на мобильных для экономии батареи */
+@media (prefers-reduced-motion: reduce), (max-width: 480px) {
+  .main::before, .main::after {
+    animation: none;
+    opacity: 0.2;
+  }
 }

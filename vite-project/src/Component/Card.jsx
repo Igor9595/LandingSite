@@ -4,6 +4,7 @@ import style from "./style/Card.module.css"
 import baton from "./Assets/baton.jpg"
 import { currentTheme } from "../Contexts"
 import hleb from "./Assets/hleb.jpg"
+import Button from "./Button"
 function Card() {
 const [likes, setlike] = useState(0)
 
@@ -13,12 +14,12 @@ const theme = useContext(currentTheme)
       <img  src={baton} alt="" />
       <p>{likes}</p>
       <p>FFasfsa</p>
+       <Button img={theme == "dark" ?
+        hleb : hleb
+        } action={()=>setlike(l => l + 1)}>
+
+      </Button>
       
-      <button  onClick={()=>setlike(l => l + 1)}>
-        {theme == "dark" ?
-        <img src={hleb} alt="" /> :
-        <img src="" alt="" />}
-      </button>
     </div>
   )
 }
