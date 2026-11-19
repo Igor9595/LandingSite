@@ -5,7 +5,7 @@ import Footer from "./Component/Footer";
 import Header from "./Component/Header";
 import style from"./App.module.css"
 import { currentTheme } from "./Contexts";
-import logo from "./Assets/Logo.jpg"
+import logo from "./Component/Assets/logo.jpg"
 
 function Prom({card}) {
   const cashe = new Promise(() =>{
@@ -45,7 +45,7 @@ function App() {
   return (
     <currentTheme.Provider value={theme}>
       <div className={style.main}>
-        <Header switchTheme={switchTheme}></Header>
+       
         <div className={style.CCC}>
           <Suspense fallback={<p>jashgfiohusad</p>} >
             <Prom card= {<></>}></Prom>
@@ -54,7 +54,7 @@ function App() {
           <Card></Card>
           <Card></Card>
         </div>
-        <Footer></Footer>
+        
       </div>
     </currentTheme.Provider>
   )
